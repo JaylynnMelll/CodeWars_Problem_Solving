@@ -1,0 +1,39 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+​
+public class Intervals
+{
+    public static int SumIntervals((int, int)[] intervals)
+    {
+        // 01) Exception Handling first
+        if (intervals.Length == 0) return 0;
+      
+      
+        // 02) Flatten the 'intervals' into a list
+        (int, int)[] flattened = intervals.OrderBy(x => x.Item1).ToArray();
+      
+​
+        // 03) Compare each interval tuples to check for overlaps
+        int rangeSum = 0;
+        int previous01 = flattened[0].Item1;
+        int previous02 = flattened[0].Item2;
+        
+        foreach (var (current01, current02) in flattened.Skip(1))
+        { 
+            // When overlapping
+            if (previous02 >= current01)
+            {
+                previous02 = Math.Max(previous02, current02);
+            }
+            else // When not overlapping
+            {
+                rangeSum += previous02 - previous01;
+                previous01 = current01;
+                previous02 = current02;
+            }
+        }
+        rangeSum += previous02 - previous01;
+        return rangeSum;
+    }
+}
