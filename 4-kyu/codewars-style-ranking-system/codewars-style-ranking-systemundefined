@@ -1,0 +1,52 @@
+        progress = rankSystem.ProgressRank(ref rank, actRank, progress);
+    }
+  
+    private bool isInvalidRank(int rank)
+    {↔}
+}
+​
+//-----------------------------------------------
+​
+public class RankSystem
+{
+    // [Variables]
+    Activity activity = new Activity();
+  
+  
+    // [Methods]  
+    public int ProgressRank(ref int userRank, int activityRank, int currentProgress)
+    {
+        int points = activity.ActivityCompleted(userRank, activityRank);
+        currentProgress += points;
+        
+        while (currentProgress >= 100 && userRank < 8)
+        {
+            currentProgress -= 100;
+            userRank = RankUp(userRank);
+        }
+      
+        if (userRank == 8) currentProgress = 0;
+      
+        return currentProgress;
+    }
+  
+    private int RankUp(int userRank)
+    {↔}
+}
+​
+//-----------------------------------------------
+​
+public class Activity
+{
+    // [Variables]
+    public int activityRank;
+  
+  
+    // [Methods]
+    public int ActivityCompleted(int userRank, int activityRank)
+    {
+        if (userRank >= activityRank)
+            return SameOrLowerPoints(userRank, activityRank);
+        else
+            return HigherPoints(userRank, activityRank);
+    }
