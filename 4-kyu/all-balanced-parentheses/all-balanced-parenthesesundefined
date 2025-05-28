@@ -1,0 +1,50 @@
+    
+    // ======================================
+    // 02) Recursive helper method (backtracking)
+    //     Builds valid combinations step-by-step
+    // ======================================
+    private static void GenerateParentheses(List<string> result, string current, int openCount, int closeCount, int maxPairs)
+    {
+        // ================================
+        // - Base Case : Stop recursion
+        // - If the current string is complete (2 * pairCount characters),
+        // - it's a valid combination -> add to result
+        // ================================
+        if (current.Length == maxPairs * 2)
+        {
+            result.Add(current);
+            return; // End current recursion branch
+        }
+      
+        // ================================
+        // Option 1) Add an opening '('
+        // Only if we haven't used all our available opening brackets
+        // ================================
+        if (openCount < maxPairs)
+        {
+            GenerateParentheses(
+                                  result,
+                                  current + "(",    // Add an open parenthesis to the string
+                                  openCount + 1,     // Increment open count
+                                  closeCount,       // Do NOT change the close count
+                                  maxPairs
+                                );
+        }
+      
+        // ================================
+        // Option 2) Add a closing ')'
+        // Only if there are unmatched opening brackets
+        // (i.e., you can't close more than you've open)
+        // ================================
+        if (closeCount < openCount)
+        {
+            GenerateParentheses(
+                              result,
+                              current + ")",         // Add a closing parenthesis
+                              openCount,             // Leave open count unchanged
+                              closeCount + 1,        // Increment close count
+                              maxPairs
+                            );
+        }
+    }
+}
