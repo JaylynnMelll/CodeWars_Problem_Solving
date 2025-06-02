@@ -1,0 +1,30 @@
+public class Kata
+{
+    public static string Rgb(int r, int g, int b) 
+    {
+        string hexadecimals = "0123456789ABCDEF";
+        var rgbValue = new System.Text.StringBuilder();
+        int[] rgb = { Clamp(r), Clamp(g), Clamp(b) };
+      
+        foreach (int number in rgb)
+        { 
+            // Get the first digit (divider)
+            int firstDigit = number / 16 ;
+            // Get the last digit (modulo)
+            int lastDigit = number % 16;
+          
+            char first = hexadecimals[firstDigit];
+            char last = hexadecimals[lastDigit];        
+          
+            rgbValue.Append(first);
+            rgbValue.Append(last);
+        }
+      
+        return rgbValue.ToString();
+    }
+  
+    private static int Clamp(int value)
+    {
+        return value < 0 ? 0 : value > 255 ? 255 : value;
+    }
+}
