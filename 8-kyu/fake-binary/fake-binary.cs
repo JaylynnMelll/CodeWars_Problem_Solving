@@ -1,20 +1,15 @@
+using System.Text;
+​
 public class Kata
 {
   public static string FakeBin(string x)
   {
-      // storing the resulting char
-      string result = "";
+      // A stringbuilder declaration to store the result
+      StringBuilder result = new StringBuilder(x.Length);
     
-      for (int i = 0; i < x.Length; i++)
-      {
-          int y = 0;
-          int number = x[i] - '0';
-          
-          if (number < 5) y = 0;
-          else if (number >= 5) y = 1;
-        
-          result += y.ToString();
-      }
-      return result;
+      // loop through each char in x and set the conditions accrodingly
+      foreach ( char c in x ) result.Append(c < '5' ? '0' : '1');
+    
+      return result.ToString();
   }
 }
